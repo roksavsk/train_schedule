@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trains Schedule</title>
+  <link rel="stylesheet" href="../stylesheets/style.css" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<h6>Sort table by clicking on column name. Click again to sort in descending order.</h6> 
+<br>
+  <table class="table-sortable">
+<thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Train Number</th>
+    <th scope="col">Departure Station</th>
+    <th scope="col">Arrival Station</th>
+    <th scope="col">Departure Time</th>
+    <th scope="col">Arrival Time</th>
+    <th width="200px">Edit</th>
+    <th width="200px">Delete</th>
+  </tr>
+</thead>
+<tbody>
+  <% if(data.length){
+ 
+    for(var i = 0; i< data.length; i++) {%>  
+      <tr>
+        <td><%= data[i].id%></td>
+        <td><%= data[i].train_number%></td>
+        <td><%= data[i].departure_station%></td>
+        <td><%= data[i].arrival_station%></td>
+        <td><%= data[i].departure_time%></td>
+        <td><%= data[i].arrival_time%></td>
+        <td>
+          <a class="btn btn-success edit" href="../train/edit/<%=data[i].id%>">Edit</a>                                            
+        </td>
+        <td>
+          <a class="btn btn-danger" href="javascript:del(<%=data[i].id%>)">Delete</a>                                            
+        </td>
+      </tr>
+    <% }
+           
+   }else{ %>
+       <tr>
+          <td colspan="3">No trains</td>
+       </tr>
+    <% } %>    
+  
+</tbody>
+</table>
+
+<script>
+    function del(id){
+      return fetch(`http://localhost:3000/train/${id}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json"
+          }
+      }).then(resp => resp.json())
+        .then(() => {
+          location.reload();
+      })
+    }
+
+    function sortTableByColumn(table, column, asc = true) {
+      const dirModifier = asc ? 1 : -1;
+      const tBody = table.tBodies[0];
+      console.log(tBody);
+      const rows = Array.from(tBody.querySelectorAll("tr"));
+      console.log(rows);
+
+      const sortedRows = rows.sort((a, b) => {
+        const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+        const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+
+        return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+      });
+
+      while (tBody.firstChild) {
+        tBody.removeChild(tBody.firstChild);
+      }
+
+      tBody.append(...sortedRows);
+
+      table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+      table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+      table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+    }
+
+    document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+      headerCell.addEventListener("click", () => {
+        const tableElement = headerCell.parentElement.parentElement.parentElement;
+        const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+        const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+        sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+      });
+    });
+
+</script>
+
+</body>
+</html>

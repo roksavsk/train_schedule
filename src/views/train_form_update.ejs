@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update train info</title>
+  <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"
+  <link rel="stylesheet" href="../stylesheets/style.css" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+  <div>
+    <label for="train_id">Train id</label>
+    <input type="text" class="form-control" id="train_id" name="id" value=<%=data%>>
+  </div>
+  <form id="formElem">
+    <div class="form-group">
+      <label for="train_number">Train Number</label>
+      <input type="text" class="form-control" name="train_number" value="Enter train number">
+    </div>
+    <div class="form-group">
+      <label for="departure_station">Departure Station</label>
+      <input type="text" class="form-control" name="departure_station" value="Enter departure station">
+    </div>
+    <div class="form-group">
+      <label for="arrival_station">Arrival Station</label>
+      <input type="text" class="form-control" name="arrival_station" value="Enter arrival station">
+    </div>
+    <div class="form-group">
+      <label for="departure_time">Departure Time</label>
+      <input type="text" class="form-control" name="departure_time" value="Enter departure time in format YYYY-MM-DD HH:MM:SS">
+    </div>
+    <div class="form-group">
+      <label for="arrival_time">Arrival Time</label>
+      <input type="text" class="form-control" name="arrival_time" value="Enter arrival time in format YYYY-MM-DD HH:MM:SS">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <script>
+    let formELem = document.getElementById("formElem");
+    formElem.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      let form = e.currentTarget;
+      let formData = new FormData(form);
+      let formDataObject = Object.fromEntries(formData.entries());
+      let formDataJsonString = JSON.stringify(formDataObject);
+      let elem_id = document.getElementById("train_id").value;
+      let response = await fetch(`http://localhost:3000/train/edit/${elem_id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json"
+        },
+        body: formDataJsonString
+      });
+  
+      let result = await response.json();
+      if (result.length) {
+        alert("Successfully submitted");
+      } else {
+        alert("Wrong input");
+      }
+      location.reload();
+    });
+    
+  </script>
+
+</body>
+</html>

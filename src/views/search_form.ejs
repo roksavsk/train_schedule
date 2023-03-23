@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search by</title>
+  <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"
+  <link rel="stylesheet" href="../stylesheets/style.css" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+  <form id="formElem" method="post" action="http://localhost:3000/selected_trains">
+    <div class="form-group">
+      <label for="variable">Id</label>
+      <input type="text" class="form-control" name="id" value="Enter train id">
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+  </form>
+  <form id="formElem" method="post" action="http://localhost:3000/selected_trains">
+    <div class="form-group">
+      <label for="variable">Number</label>
+      <input type="text" class="form-control" name="train_number" value="Enter train number">
+    </div> 
+    <button type="submit" class="btn btn-primary">Find</button>
+  </form>
+  <form id="formElem" method="post" action="http://localhost:3000/selected_trains">
+    <div class="form-group">
+      <label for="variable">Departure station</label>
+      <input type="text" class="form-control" name="departure_station" value="Enter departure station">
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+  </form>
+  <form id="formElem" method="post" action="http://localhost:3000/selected_trains">
+    <div class="form-group">
+      <label for="variable">Arrival station</label>
+      <input type="text" class="form-control" name="arrival_station" value="Enter arrival station">
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+  </form>
+  <form id="formElem" method="post" action="http://localhost:3000/selected_trains">
+    <div class="form-group">
+      <label for="variable">Departure time</label>
+      <input type="text" class="form-control" name="departure_time" value="Enter departure time in format YYYY-MM-DD HH:MM:SS">
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+  </form>
+  <form id="formElem" method="post" action="http://localhost:3000/selected_trains">
+    <div class="form-group">
+      <label for="variable">Arrival time</label>
+      <input type="text" class="form-control" name="arrival_time" value="Enter arrival time in format YYYY-MM-DD HH:MM:SS">
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+  </form>
+</body>
+</html>
