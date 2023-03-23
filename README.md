@@ -1,6 +1,6 @@
-# Train Schedule - Node.js, TypeORM, MySQL
+# Train Schedule - Node.js, TypeScript, TypeORM, MySQL
 
-Train schedule app with server on Node.js using ExpressJS, connected to the MySQL database using TypeORM, with JavaScript, EJS, HTML, CSS on frontend part.
+Train schedule app with server on Node.js with TypeScript using ExpressJS, connected to the MySQL database using TypeORM, with JavaScript, EJS, HTML, CSS on frontend part.
 
 ## Installation instructions
 
